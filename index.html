@@ -13,30 +13,34 @@
 	<body>
 
 		<section class="cover-1 text-center">
-			<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+			<nav class="navbar navbar-dark navbar-custom">
 				<div class="container">
 					<a class="navbar-brand" href="#">Navbar</a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse pull-xs-right justify-content-end" id="navbarSupportedContent">
-						<ul class="navbar-nav mt-2 mt-md-0">
-							<li class="nav-item active">
-								<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">About</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Our Work</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Contact</a>
-							</li>
-							<li class="nav-item">
-								<a class="btn btn-outline-white btn-outline" href="#">Buy Now</a>
-							</li>
-						</ul>
+					<div class="">
+						<span class="d-inline" id="userDisplay"></span>
+						<button class="btn btn-primary btn-action d-none btn-sm mb-2 mr-2 mr-2" id="btnLogout">Logout</button>
+					</div>
+					<div class="d.inline" id="togglers">
+						<button class="navbar-toggler btn-primary btn-sm mb-2 ml-2 mr-2" id="toggleLogin" type="button" data-toggle="collapse" data-target="#Expand" aria-controls="Expand" aria-expanded="false" aria-label="Toggle navigation">
+							Login
+						</button>
+						<button class="navbar-toggler btn-secondary btn-sm mb-2 ml-2 mr-2" id="toggleSignup" type="button" data-toggle="collapse" data-target="#Expand" aria-controls="Expand" aria-expanded="false" aria-label="Toggle navigation">
+							Sign up
+						</button>
+						<div class="collapse navbar-collapse pull-xs-right justify-content-end" id="Expand">
+							<ul class="navbar-nav mt-2 mt-md-0">
+								<li class="nav-item active">
+									<input type="email" placeholder="Email" id="txtEmail">
+								</li>
+								<li class="nav-item">
+									<input type="password" placeholder="Password" id="txtPassword">
+								</li>
+								<li class="nav-item" data-toggle="collapse" data-target="#loginExpand" aria-controls="loginExpand" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="btn btn-primary btn-sm mb-2 ml-2 mr-2" id="btnLogin">Login</span>
+									<span class="btn btn-secondary btn-sm mb-2 ml-2 mr-2" id="btnSignup">Sign Up</span>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -44,15 +48,28 @@
 				<div class="cover-inner container">
 					<h1 class="jumbotron-heading">Say <em>hello</em> to our	<strong>Startup UI Kit</strong></h1>
 					<p class="lead">A collection of coded HTML and CSS elements to help your build your startup website. Clean design, fully responsive and based on Bootstrap 4.</p>
-					<p>
-						<a href="#" class="btn btn-primary btn-lg mb-2 mr-2 ml-2" id="bigOne">Main call to action</a>
-						<a href="#" class="btn btn-outline-white btn-lg mb-2 ml-2 ml-2">Secondary action</a>
-					</p>
+					<div class='container'>
+						<div class="col-md-4 col-feature d-inline-block">
+							<div class="rounded-circle justify-center">
+								<em class="fa fa-2x fa-paint-brush"></em>
+							</div>
+							<h4>Tree count</h4>
+							<h6 id="trees">-</h6>
+						</div>
+						<div class="col-md-4 col-feature d-inline-block">
+							<div class="rounded-circle justify-center">
+								<em class="fa fa-2x fa-desktop"></em>
+							</div>
+							<h4>Pages Left</h4>
+							<h6 id="pages">-</h6>
+						</div>
+					</div>
+					<button class="btn btn-outline-info btn-sm mb-2 mr-2 ml-2 center-block " id="btnPage">Increment Page</button>
 				</div>
 			</div>
 		</section>
 
-		<section class="cover-2 text-left">
+		<section class="cover-2 text-left d-none">
 			<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
 				<div class="container">
 					<a class="navbar-brand" href="#">Navbar</a>
@@ -99,7 +116,7 @@
 			</div>
 		</section>
 
-		<section class="cover-5 text-center">
+		<section class="cover-5 text-center d-none">
 			<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
 				<div class="container">
 					<a class="navbar-brand" href="#">Navbar</a>
@@ -134,7 +151,7 @@
 					<h1 class="jumbotron-heading">Say <em>hello</em> to our	<strong>Startup UI Kit</strong></h1>
 					<div class="row">
 						<div class="m-auto col-md-4 mt-5">
-							<button type="submit" class="btn btn-lg btn-success pill-btn mt-5">Get Started</button>
+							<button type="submit" class="btn btn-lg btn-success pill-btn mt-5" id="bigOne">Get Started</button>
 						</div>
 					</div>
 				</div>
@@ -150,16 +167,16 @@
 						<div class="rounded-circle justify-center">
 							<em class="fa fa-2x fa-paint-brush"></em>
 						</div>
-						<h4>Clean Design</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus erat sed sem sagittis cursus.</p>
+						<h4>Tree count</h4>
+						<p id="trees">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus erat sed sem sagittis cursus.</p>
 						<p><a class="btn btn-outline-primary mt-2" href="#" role="button">View details</a></p>
 					</div>
 					<div class="col-md-4 col-feature">
 						<div class="rounded-circle justify-center">
 							<em class="fa fa-2x fa-desktop"></em>
 						</div>
-						<h4>Responsive</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus erat sed sem sagittis cursus.</p>
+						<h4>Pages Left</h4>
+						<p id="pages">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus erat sed sem sagittis cursus.</p>
 						<p><a class="btn btn-outline-primary mt-2" href="#" role="button">View details</a></p>
 					</div>
 					<div class="col-md-4 col-feature">
@@ -574,9 +591,128 @@
 		  firebase.initializeApp(config);
 		</script>
 		<script>
-			var bigOne = document.getElementById('bigOne');
-			var dbRef = firebase.database().ref().child('text');
-			dbRef.on('value', snap => bigOne.innerText = snap.val());
+			// get login elements
+			const txtEmail = document.getElementById('txtEmail');
+			const txtPassword = document.getElementById('txtPassword');
+			const btnLogin = document.getElementById('btnLogin');
+			const btnSignup = document.getElementById('btnSignup');
+			const btnLogout = document.getElementById('btnLogout');
+			const btnPage = document.getElementById('btnPage');
+			const userDisplay = document.getElementById('userDisplay');
+			const togglers = document.getElementById('togglers');
+			const toggleLogin = document.getElementById('toggleLogin');
+			const toggleSignup = document.getElementById('toggleSignup');
+
+
+			// Add login event
+			btnLogin.addEventListener('click', () => {
+					// Get email and password
+					const email = txtEmail.value;
+					const password = txtPassword.value;
+					const auth = firebase.auth();
+					// Sign in
+					const promise = auth.signInWithEmailAndPassword(email, password);
+					promise.catch(e => console.log(e.message));
+			})
+
+			// Add signup event
+			btnSignup.addEventListener('click', () => {
+				// Get email and password
+				// TODO: check for real email
+				const email = txtEmail.value;
+				const password = txtPassword.value;
+				const auth = firebase.auth();
+				// Sign in
+				auth.createUserWithEmailAndPassword(email, password)
+					.then(initializeUserInDb(email))
+					.catch(e => console.log(e.message));
+			})
+
+
+			firebase.auth().onAuthStateChanged(firebaseUser => {
+				if (firebaseUser) {
+						console.log(firebaseUser);
+						btnSignup.classList.add('d-none');
+						btnLogin.classList.add('d-none');
+						togglers.classList.add('d-none');
+						btnLogout.classList.remove('d-none');
+						userDisplay.innerHTML = "Logged in as "+firebaseUser.email;
+						newPageUpdate();
+				} else {
+						console.log("not logged in");
+						btnSignup.classList.remove('d-none');
+						btnLogin.classList.remove('d-none');
+						togglers.classList.remove('d-none');
+						btnLogout.classList.add('d-none');
+						userDisplay.innerHTML = "";
+				}
+			});
+
+			btnLogout.addEventListener('click', () => {
+				firebase.auth().signOut(); // sign out currently authenticated user
+			})
+
+
+			toggleLogin.addEventListener('click', () => {
+				btnSignup.classList.toggle('d-none');
+				toggleSignup.classList.toggle('invisible');
+			});
+
+
+			toggleSignup.addEventListener('click', () => {
+				btnLogin.classList.toggle('d-none');
+				toggleLogin.classList.toggle('invisible');
+			});
+
+
+			// development button for imitating a page load
+			btnPage.addEventListener('click', () => {
+				newPageUpdate();
+			});
+
+			function initializeUserInDb(email) {
+				userId = firebase.auth().currentUser.uid;
+				userRef = firebase.database().ref("users/"+userId);
+				userRef.set({
+					"email": email,
+					"user_stats": {
+						"tree_count": 0,
+						"pages_left": 100,
+						"snoozed": false
+					},
+				});
+			}
+
+
+			function newPageUpdate() {
+				// Get db path to user stats
+				let userId = firebase.auth().currentUser.uid;
+				let statsRef = firebase.database().ref("users/"+userId+"/user_stats");
+
+				// Get user stats from db
+				statsRef.once('value', (snapshot) => {
+					let pages = snapshot.val().pages_left;
+					let trees = snapshot.val().tree_count;
+
+					// Evaluate correct new values
+					if (pages == 1) {
+						pages = 100;
+						trees++;
+		            } else {
+						pages--;
+		            }
+
+					// Update user stats in db appropriately
+					statsRef.update({
+						pages_left: pages,
+						tree_count: trees
+					});
+
+					// Update display on DOM
+					document.getElementById('trees').innerHTML = trees;
+					document.getElementById('pages').innerHTML = pages;
+				});
+			}
 		</script>
 	</body>
 </html>
