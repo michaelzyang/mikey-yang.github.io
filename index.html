@@ -41,6 +41,7 @@
 								</li>
 							</ul>
 						</div>
+						<div id="authError"></div>
 					</div>
 				</div>
 			</nav>
@@ -591,6 +592,7 @@
 		  firebase.initializeApp(config);
 		</script>
 		<script>
+			'use strict';
 			// get login elements
 			const txtEmail = document.getElementById('txtEmail');
 			const txtPassword = document.getElementById('txtPassword');
@@ -602,77 +604,114 @@
 			const togglers = document.getElementById('togglers');
 			const toggleLogin = document.getElementById('toggleLogin');
 			const toggleSignup = document.getElementById('toggleSignup');
+			const authError = document.getElementById('authError');
 
 
-			// Add login event
+			// Login button functionality
 			btnLogin.addEventListener('click', () => {
-					// Get email and password
-					const email = txtEmail.value;
-					const password = txtPassword.value;
-					const auth = firebase.auth();
-					// Sign in
-					const promise = auth.signInWithEmailAndPassword(email, password);
-					promise.catch(e => console.log(e.message));
-			})
+				// clear auth error messages
+				while (authError.firstChild) authError.removeChild(authError.firstChild);
 
-			// Add signup event
+				// Get email and password
+				const email = txtEmail.value;
+				const password = txtPassword.value;
+				const auth = firebase.auth();
+
+				// Sign in
+				auth.signInWithEmailAndPassword(email, password)
+					.catch(e => {
+						let error = document.createTextNode(e.message);
+						authError.appendChild(error);
+						// authError.textContent = e.message; // no IE8 support
+					});
+			});
+
+			// Signup button functionality
 			btnSignup.addEventListener('click', () => {
+				// clear auth error messages
+				while (authError.firstChild) authError.removeChild(authError.firstChild);
+
 				// Get email and password
 				// TODO: check for real email
 				const email = txtEmail.value;
 				const password = txtPassword.value;
 				const auth = firebase.auth();
-				// Sign in
+
+				// Sign up
 				auth.createUserWithEmailAndPassword(email, password)
-					.then(initializeUserInDb(email))
-					.catch(e => console.log(e.message));
-			})
+					.then(() => initializeUserInDb(email))
+					.catch(e => {
+						let error = document.createTextNode(e.message);
+						authError.appendChild(error);
+						// authError.textContent = e.message; // no IE8 support
+					});
+			});
+
+			// Log out button functionality
+			btnLogout.addEventListener('click', () => {
+				firebase.auth().signOut(); // sign out currently authenticated user
+			});
 
 
+			// Listener for sign in / sign out
 			firebase.auth().onAuthStateChanged(firebaseUser => {
 				if (firebaseUser) {
 						console.log(firebaseUser);
-						btnSignup.classList.add('d-none');
-						btnLogin.classList.add('d-none');
+
 						togglers.classList.add('d-none');
 						btnLogout.classList.remove('d-none');
-						userDisplay.innerHTML = "Logged in as "+firebaseUser.email;
+
+						// count new page for the user
 						newPageUpdate();
+
+						// display username
+						let username = document.createTextNode("Logged in as "+firebaseUser.email);
+						userDisplay.appendChild(username);
 				} else {
 						console.log("not logged in");
-						btnSignup.classList.remove('d-none');
-						btnLogin.classList.remove('d-none');
+
 						togglers.classList.remove('d-none');
 						btnLogout.classList.add('d-none');
-						userDisplay.innerHTML = "";
+
+						// clear displayed username
+						while (userDisplay.firstChild) userDisplay.removeChild(userDisplay.firstChild);
 				}
 			});
 
-			btnLogout.addEventListener('click', () => {
-				firebase.auth().signOut(); // sign out currently authenticated user
-			})
-
-
+			// Toggler to expand / collapse login div
 			toggleLogin.addEventListener('click', () => {
 				btnSignup.classList.toggle('d-none');
 				toggleSignup.classList.toggle('invisible');
+
+				// clear any previous auth error messages
+				while (authError.firstChild) authError.removeChild(authError.firstChild);
 			});
 
 
+			// Toggler to expand / collapse signup div
 			toggleSignup.addEventListener('click', () => {
 				btnLogin.classList.toggle('d-none');
 				toggleLogin.classList.toggle('invisible');
+
+				// clear any previous auth error messages
+				while (authError.firstChild) authError.removeChild(authError.firstChild);
 			});
 
 
-			// development button for imitating a page load
+			// Development button for imitating a page load
 			btnPage.addEventListener('click', () => {
+				// TODO: delete this
 				newPageUpdate();
 			});
 
+			/**
+			 * Initialises a user's data in the Firebase real-time database
+			 *
+			 * @param  {string} email email address of the user to be initialised
+			 */
 			function initializeUserInDb(email) {
-				userId = firebase.auth().currentUser.uid;
-				userRef = firebase.database().ref("users/"+userId);
+				let userId = firebase.auth().currentUser.uid;
+				let userRef = firebase.database().ref("users/"+userId);
 				userRef.set({
 					"email": email,
 					"user_stats": {
@@ -683,7 +722,9 @@
 				});
 			}
 
-
+			/**
+			 * New page logic for updating Firebase db and DOM
+			 */
 			function newPageUpdate() {
 				// Get db path to user stats
 				let userId = firebase.auth().currentUser.uid;
