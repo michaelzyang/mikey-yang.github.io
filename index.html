@@ -593,62 +593,63 @@
 		</script>
 		<script>
 			'use strict';
-			// get login elements
-			const txtEmail = document.getElementById('txtEmail');
-			const txtPassword = document.getElementById('txtPassword');
-			const btnLogin = document.getElementById('btnLogin');
-			const btnSignup = document.getElementById('btnSignup');
-			const btnLogout = document.getElementById('btnLogout');
-			const btnPage = document.getElementById('btnPage');
-			const userDisplay = document.getElementById('userDisplay');
-			const togglers = document.getElementById('togglers');
-			const toggleLogin = document.getElementById('toggleLogin');
-			const toggleSignup = document.getElementById('toggleSignup');
-			const authError = document.getElementById('authError');
+			// get login elements // TODO: delete, use jquery instead
+			// const txtEmail = document.getElementById('txtEmail'); // TODO: delete, use jquery instead
+			// const txtPassword = document.getElementById('txtPassword'); // TODO: delete, use jquery instead
+			// const btnLogin = document.getElementById('btnLogin'); // TODO: delete, use jquery instead
+			// const btnSignup = document.getElementById('btnSignup'); // TODO: delete, use jquery instead
+			// const btnLogout = document.getElementById('btnLogout'); // TODO: delete, use jquery instead
+			// const btnPage = document.getElementById('btnPage'); // TODO: delete, use jquery instead
+			// const userDisplay = document.getElementById('userDisplay'); // TODO: delete, use jquery instead
+			// const togglers = document.getElementById('togglers'); // TODO: delete, use jquery instead
+			// const toggleLogin = document.getElementById('toggleLogin'); // TODO: delete, use jquery instead
+			// const toggleSignup = document.getElementById('toggleSignup'); // TODO: delete, use jquery instead
+			// const authError = document.getElementById('authError'); // TODO: delete, use jquery instead
 
 
 			// Login button functionality
-			btnLogin.addEventListener('click', () => {
-				// clear auth error messages
-				while (authError.firstChild) authError.removeChild(authError.firstChild);
+			// btnLogin.addEventListener('click', () => { // TODO: delete, use jquery instead
+			$('#btnLogin').on('click', () => {
+				// clear any previous auth error messages
+				// while (authError.firstChild) authError.removeChild(authError.firstChild); // TODO: delete, use jquery instead
+				$('#authError').empty();
 
 				// Get email and password
-				const email = txtEmail.value;
-				const password = txtPassword.value;
-				const auth = firebase.auth();
+				// const email = txtEmail.value; // TODO: delete, use jquery instead
+				// const password = txtPassword.value; // TODO: delete, use jquery instead
+				const email = $('#txtEmail').val();
+				const password = $('#txtPassword').val();
 
 				// Sign in
-				auth.signInWithEmailAndPassword(email, password)
-					.catch(e => {
-						let error = document.createTextNode(e.message);
-						authError.appendChild(error);
-						// authError.textContent = e.message; // no IE8 support
-					});
+				firebase.auth().signInWithEmailAndPassword(email, password)
+					// .catch(e => authError.textContent = e.message); // TODO: delete, use jquery instead
+					.catch(err => $('#authError').text(err.message));
 			});
 
 			// Signup button functionality
-			btnSignup.addEventListener('click', () => {
-				// clear auth error messages
-				while (authError.firstChild) authError.removeChild(authError.firstChild);
+			// btnSignup.addEventListener('click', () => { // TODO: delete, use jquery instead
+			$('#btnSignup').on('click', () => {
+				// clear any previous auth error messages
+				// while (authError.firstChild) authError.removeChild(authError.firstChild); // TODO: delete, use jquery instead
+				$('#authError').empty();
 
 				// Get email and password
 				// TODO: check for real email
-				const email = txtEmail.value;
-				const password = txtPassword.value;
-				const auth = firebase.auth();
+				// const email = txtEmail.value; // TODO: delete, use jquery instead
+				// const password = txtPassword.value; // TODO: delete, use jquery instead
+				const email = $('#txtEmail').val();
+				const password = $('#txtPassword').val();
 
 				// Sign up
-				auth.createUserWithEmailAndPassword(email, password)
+				firebase.auth().createUserWithEmailAndPassword(email, password)
 					.then(() => initializeUserInDb(email))
-					.catch(e => {
-						let error = document.createTextNode(e.message);
-						authError.appendChild(error);
-						// authError.textContent = e.message; // no IE8 support
-					});
+					// .catch(e => authError.textContent = e.message); // TODO: delete, use jquery instead
+					.catch(err => $('#authError').text(err.message));
 			});
 
 			// Log out button functionality
-			btnLogout.addEventListener('click', () => {
+			// btnLogout.addEventListener('click', () => { // TODO: delete, use jquery instead
+			$('#btnLogout').on('click', () => {
 				firebase.auth().signOut(); // sign out currently authenticated user
 			});
 
@@ -657,49 +658,63 @@
 			firebase.auth().onAuthStateChanged(firebaseUser => {
 				if (firebaseUser) {
 						console.log(firebaseUser);
-
-						togglers.classList.add('d-none');
-						btnLogout.classList.remove('d-none');
+						// togglers.classList.add('d-none'); // TODO: delete, use jquery instead
+						// btnLogout.classList.remove('d-none'); // TODO: delete, use jquery instead
+						$('#togglers').addClass('d-none');
+						$('#btnLogout').removeClass('d-none');
 
 						// count new page for the user
 						newPageUpdate();
 
 						// display username
-						let username = document.createTextNode("Logged in as "+firebaseUser.email);
-						userDisplay.appendChild(username);
+						// let username = document.createTextNode("Logged in as "+firebaseUser.email); // TODO: delete, use jquery instead
+						// userDisplay.appendChild(username); // TODO: delete, use jquery instead
+						$('#userDisplay').text("Logged in as "+firebaseUser.email);
 				} else {
 						console.log("not logged in");
 
-						togglers.classList.remove('d-none');
-						btnLogout.classList.add('d-none');
+						// togglers.classList.remove('d-none'); // TODO: delete, use jquery instead
+						// btnLogout.classList.add('d-none'); // TODO: delete, use jquery instead
+						$('#togglers').removeClass('d-none');
+						$('#btnLogout').addClass('d-none');
 
 						// clear displayed username
-						while (userDisplay.firstChild) userDisplay.removeChild(userDisplay.firstChild);
+						// while (#userDisplay.firstChild) userDisplay.removeChild(userDisplay.firstChild) // TODO: delete, use jquery instead
+						$('#userDisplay').empty();
 				}
 			});
 
 			// Toggler to expand / collapse login div
-			toggleLogin.addEventListener('click', () => {
-				btnSignup.classList.toggle('d-none');
-				toggleSignup.classList.toggle('invisible');
+			// toggleLogin.addEventListener('click', () => { // TODO: delete, use jquery instead
+			$('#toggleLogin').on('click', () => {
+				// btnSignup.classList.toggle('d-none'); // TODO: delete, use jquery instead
+				// toggleSignup.classList.toggle('invisible'); // TODO: delete, use jquery instead
+				$('#btnSignup').toggle();
+				$('toggleSignup').toggle();
 
 				// clear any previous auth error messages
-				while (authError.firstChild) authError.removeChild(authError.firstChild);
+				// while (authError.firstChild) authError.removeChild(authError.firstChild); // TODO: delete, use jquery instead
+				$('#authError').empty();
 			});
 
 
 			// Toggler to expand / collapse signup div
-			toggleSignup.addEventListener('click', () => {
-				btnLogin.classList.toggle('d-none');
-				toggleLogin.classList.toggle('invisible');
+			// toggleSignup.addEventListener('click', () => { // TODO: delete, use jquery instead
+			$('#toggleSignup').on('click', () => {
+				// btnLogin.classList.toggle('d-none'); // TODO: delete, use jquery instead
+				// toggleLogin.classList.toggle('invisible'); // TODO: delete, use jquery instead
+				$('#btnSignup').toggle();
+				$('toggleSignup').toggle();
 
 				// clear any previous auth error messages
-				while (authError.firstChild) authError.removeChild(authError.firstChild);
+				// while (authError.firstChild) authError.removeChild(authError.firstChild); // TODO: delete, use jquery instead
+				$('#authError').empty();
 			});
 
 
 			// Development button for imitating a page load
-			btnPage.addEventListener('click', () => {
+			// btnPage.addEventListener('click', () => { // TODO: delete, use jquery instead
+			$('#btnPage').on('click', () => {
 				// TODO: delete this
 				newPageUpdate();
 			});
@@ -750,8 +765,10 @@
 					});
 
 					// Update display on DOM
-					document.getElementById('trees').innerHTML = trees;
-					document.getElementById('pages').innerHTML = pages;
+					// document.getElementById('trees').innerHTML = trees; // TODO: delete, use jquery instead
+					// document.getElementById('pages').innerHTML = pages; // TODO: delete, use jquery instead
+					$('#trees').text(trees);
+					$('#pages').text(pages);
 				});
 			}
 		</script>
