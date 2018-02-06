@@ -654,8 +654,8 @@
 
 			// Toggler to expand / collapse login div
 			$('#toggleLogin').on('click', () => {
-				$('#btnSignup').toggle();
-				$('#toggleSignup').toggleClass('invisible');
+				$('#btnSignup').toggle(); // toggle display: none
+				$('#toggleSignup').toggleClass('invisible'); // toggle visibility: hidden
 
 				// clear any previous auth error messages
 				$('#authError').empty();
@@ -664,8 +664,8 @@
 
 			// Toggler to expand / collapse signup div
 			$('#toggleSignup').on('click', () => {
-				$('#btnLogin').toggle();
-				$('#toggleLogin').toggleClass('invisible');
+				$('#btnLogin').toggle(); // toggle display: none
+				$('#toggleLogin').toggleClass('invisible'); // toggle visibility: hidden
 
 				// clear any previous auth error messages
 				$('#authError').empty();
